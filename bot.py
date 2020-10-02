@@ -3,6 +3,7 @@ import os
 import random
 import re
 
+import discord
 from discord.ext import commands
 from dotenv import load_dotenv
 
@@ -25,6 +26,14 @@ async def on_ready():
 @bot.command(name='hello')
 async def hello(ctx):
     await ctx.send('Hello')
+
+@bot.command(name='emote', aliases=['e'])
+async def emote(ctx, name : str):
+    path : str = f'./images/pokimane/{name}.png'
+    if os.path.isfile(path):
+        await ctx.send(file=discord.File(path))
+    else:
+        await ctx.send("Not a valid emote")
 
 # Start the bot
 bot.run(TOKEN) 
