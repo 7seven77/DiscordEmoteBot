@@ -1,0 +1,11 @@
+# Don't upload private information (Etc. the bot's token)
+.env
+
+# Don't upload the cache
+__pycache__
+
+# Don't upload any database files
+*.db
+
+# Dont upload ide specific files
+.vscode/
