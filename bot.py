@@ -22,7 +22,8 @@ bot = commands.Bot(command_prefix=botPrefix)
 @bot.event
 async def on_ready():
     print('Bot ready')
-    bot.add_cog(emoteCog())
+    bot.add_cog(emoteCog("poki"))
+    bot.add_cog(emoteCog("xqc"))
 
 ##### Bot commands
 
