@@ -1,5 +1,6 @@
 # bot.py
 import os
+from os import name
 import random
 import re
 
@@ -20,6 +21,9 @@ botPrefix = str(os.getenv('BOT_PREFIX'))
 bot = commands.Bot(command_prefix=botPrefix)
 
 bot.remove_command('help')
+
+# A blank entry for an embedded message
+blank : str = '\u200B'
 ##### Bot events
 
 @bot.event
@@ -44,7 +48,20 @@ async def help(ctx : Context, group : str = None) -> None:
 
 async def showGroups(ctx : Context) -> None:
     groups : list[str] = os.listdir('./images/')
-    await ctx.send(groups)
+
+    message = discord.Embed(title =f'Commands', description=f'Commands you can use to show an emote',color=0x800080)
+
+    size : int = len(groups)
+    inline : bool = False
+    for count in range(size):
+        if count == size - 1:
+            inline = True
+        message.add_field(name=groups[count], value=blank, inline=inline)
+
+    #message.add_field(name=blank, value=blank, inline=False)
+    message.add_field(name='Commands are invoked using `.{Command} {Name}`',
+        value='Eg. `.xqc L`', inline=False)
+    await ctx.send(embed=message)
 
 async def showEmotes(ctx : Context, group : str):
     path : str = f'./images/{group}/'
