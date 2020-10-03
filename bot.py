@@ -5,6 +5,8 @@ import re
 
 import discord
 from discord.ext import commands
+from discord.ext.commands import Context
+from discord.ext.commands import context
 from dotenv import load_dotenv
 
 from emote import emoteCog
@@ -34,18 +36,24 @@ async def on_ready():
 ##### Bot commands
 
 @bot.command(name='help')
-async def help(ctx, group : str = None) -> None:
+async def help(ctx : Context, group : str = None) -> None:
     if group == None:
-        groups : list[str] = os.listdir('./images/')
-        await ctx.send(groups)
+        await showGroups(ctx)
     else:
-        path : str = f'./images/{group}/'
-        if not os.path.isdir(path):
-            await ctx.send("This is an invalid command")
-            return
-        fileNames : list = os.listdir(path)
-        emotes = [fileName[:-4] for fileName in fileNames]
-        await ctx.send(emotes)
+        await showEmotes(ctx, group)
+
+async def showGroups(ctx : Context) -> None:
+    groups : list[str] = os.listdir('./images/')
+    await ctx.send(groups)
+
+async def showEmotes(ctx : Context, group : str):
+    path : str = f'./images/{group}/'
+    if not os.path.isdir(path):
+        await ctx.send("This is an invalid command")
+        return
+    fileNames : list = os.listdir(path)
+    emotes = [fileName[:-4] for fileName in fileNames]
+    await ctx.send(emotes)
 
 # Start the bot
 print("Starting bot", end='\r')
