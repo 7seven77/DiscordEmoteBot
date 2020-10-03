@@ -21,9 +21,14 @@ bot = commands.Bot(command_prefix=botPrefix)
 
 @bot.event
 async def on_ready():
-    print('Bot ready')
+    print('Adding cogs', end ='\r')
     bot.add_cog(emoteCog("poki"))
     bot.add_cog(emoteCog("xqc"))
+
+    await bot.change_presence(activity=discord.Activity(
+        type=discord.ActivityType.listening, name="you for commands .help"))
+
+    print('  - Bot ready -  ')
 
 ##### Bot commands
 
@@ -42,4 +47,5 @@ async def emotes(ctx, dirName : str) -> None:
     await ctx.send(emotes)
     
 # Start the bot
+print("Starting bot", end='\r')
 bot.run(TOKEN) 
