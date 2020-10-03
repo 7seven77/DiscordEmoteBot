@@ -17,6 +17,7 @@ TOKEN = os.getenv('DISCORD_TOKEN')
 botPrefix = str(os.getenv('BOT_PREFIX'))
 bot = commands.Bot(command_prefix=botPrefix)
 
+bot.remove_command('help')
 ##### Bot events
 
 @bot.event
@@ -32,20 +33,20 @@ async def on_ready():
 
 ##### Bot commands
 
-@bot.command(name='hello')
-async def hello(ctx):
-    await ctx.send('Hello')
+@bot.command(name='help')
+async def help(ctx, group : str = None) -> None:
+    if group == None:
+        groups : list[str] = os.listdir('./images/')
+        await ctx.send(groups)
+    else:
+        path : str = f'./images/{group}/'
+        if not os.path.isdir(path):
+            await ctx.send("This is an invalid command")
+            return
+        fileNames : list = os.listdir(path)
+        emotes = [fileName[:-4] for fileName in fileNames]
+        await ctx.send(emotes)
 
-@bot.command(name='emotes', aliases=['e', 'all'])
-async def emotes(ctx, dirName : str) -> None:
-    path : str = f'./images/{dirName}/'
-    if not os.path.isdir(path):
-        await ctx.send("This is an invalid command")
-        return
-    fileNames : list = os.listdir(path)
-    emotes = [fileName[:-4] for fileName in fileNames]
-    await ctx.send(emotes)
-    
 # Start the bot
 print("Starting bot", end='\r')
 bot.run(TOKEN) 
