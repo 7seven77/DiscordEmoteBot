@@ -2,6 +2,7 @@ import discord
 import os
 
 from discord.ext import commands
+from image import getEmote
 
 class emoteCog(commands.Cog):
     def __init__(self, prefix : str) -> None:
@@ -15,6 +16,6 @@ class emoteCog(commands.Cog):
 
         path : str = f'./images/{self.prefix}/{self.prefix}{name}.png'
         if os.path.isfile(path):
-            await ctx.send(file=discord.File(path))
+            await ctx.send(file=getEmote(path))
         else:
             await ctx.send("Not a valid emote")
