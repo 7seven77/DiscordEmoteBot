@@ -1,12 +1,14 @@
 # DiscordBot
 
-### Libraries
+## Libraries
 
-- [discord.py]([https://discordpy.readthedocs.io/en/latest/index.html](https://discordpy.readthedocs.io/en/latest/index.html)) 
+- [discord.py](https://discordpy.readthedocs.io/en/latest/index.html)
 
-- [python-dotenv]([https://github.com/theskumar/python-dotenv](https://github.com/theskumar/python-dotenv))
+- [python-dotenv](https://github.com/theskumar/python-dotenv)
 
-### Important
+- [Pillow](https://pillow.readthedocs.io/en/stable/)
+
+## Important
 
 When contributing to or using this repo, do not upload your ```.env``` file as this can leak sensitive information such as the bot's token
 
