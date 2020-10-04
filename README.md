@@ -1,6 +1,6 @@
 # DiscordBot
 
-## Libraries
+## Packages
 
 - [discord.py](https://discordpy.readthedocs.io/en/latest/index.html)
 

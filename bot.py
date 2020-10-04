@@ -29,8 +29,10 @@ blank : str = '\u200B'
 @bot.event
 async def on_ready():
     print('Adding cogs', end ='\r')
-    bot.add_cog(emoteCog("poki"))
-    bot.add_cog(emoteCog("xqc"))
+
+    commands : list[str] = os.listdir(os.path.join('.', 'images'))
+    for command in commands:
+        bot.add_cog(emoteCog(command))
 
     await bot.change_presence(activity=discord.Activity(
         type=discord.ActivityType.listening, name="you for commands .help"))
