@@ -47,7 +47,7 @@ async def help(ctx : Context, group : str = None) -> None:
         await showEmotes(ctx, group)
 
 async def showGroups(ctx : Context) -> None:
-    groups : list[str] = os.listdir('./images/')
+    groups : list[str] = os.listdir(os.path.join('.', 'images'))
 
     message = discord.Embed(title =f'Commands', description=f'Commands you can use to show an emote',color=0x800080)
 
@@ -64,7 +64,7 @@ async def showGroups(ctx : Context) -> None:
     await ctx.send(embed=message)
 
 async def showEmotes(ctx : Context, group : str):
-    path : str = f'./images/{group}/'
+    path : str = os.path.join('.', 'images', group)
     if not os.path.isdir(path):
         await ctx.send("This is an invalid command")
         return

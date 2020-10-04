@@ -1,6 +1,7 @@
 from PIL import Image
 import io
 import discord
+import os
 
 mediumSize : int = (56, 56)
 largeSize : int = (112, 112)
@@ -25,5 +26,6 @@ def getEmote(path : str) -> discord.File:
     with io.BytesIO() as binary:
         image.save(binary, 'PNG')
         binary.seek(0)
-        return discord.File(binary, 'image.png')
+        fileName : str = os.path.basename(path)
+        return discord.File(binary, fileName)
     

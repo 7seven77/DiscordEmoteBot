@@ -14,7 +14,7 @@ class emoteCog(commands.Cog):
         # Delete the original method
         await ctx.message.delete()
 
-        path : str = f'./images/{self.prefix}/{self.prefix}{name}.png'
+        path : str = os.path.join('.', 'images', self.prefix, f'{self.prefix}{name}.png')
         if os.path.isfile(path):
             await ctx.send(file=getEmote(path))
         else:
