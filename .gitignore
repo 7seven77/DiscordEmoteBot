@@ -9,3 +9,6 @@ __pycache__
 
 # Dont upload ide specific files
 .vscode/
+
+# Dont upload the images
+images/
