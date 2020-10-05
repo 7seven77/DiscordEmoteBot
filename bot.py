@@ -1,4 +1,5 @@
 # bot.py
+from directory import Directory
 import os
 from os import name
 import random
@@ -30,7 +31,7 @@ blank : str = '\u200B'
 async def on_ready():
     print('Adding cogs', end ='\r')
 
-    commands : list[str] = os.listdir(os.path.join('.', 'images'))
+    commands : list[str] = Directory.getImageDirectories()
     for command in commands:
         bot.add_cog(emoteCog(command))
 
@@ -49,7 +50,7 @@ async def help(ctx : Context, group : str = None) -> None:
         await showEmotes(ctx, group)
 
 async def showGroups(ctx : Context) -> None:
-    groups : list[str] = os.listdir(os.path.join('.', 'images'))
+    groups : list[str] = Directory.getImageDirectories()
 
     message = discord.Embed(title =f'Commands', description=f'Commands you can use to show an emote',color=0x800080)
 
@@ -66,12 +67,11 @@ async def showGroups(ctx : Context) -> None:
     await ctx.send(embed=message)
 
 async def showEmotes(ctx : Context, group : str):
-    path : str = os.path.join('.', 'images', group)
-    if not os.path.isdir(path):
+    files : list[str] = Directory.getImageNames(group)
+    if files == None:
         await ctx.send("This is an invalid command")
         return
-    fileNames : list = os.listdir(path)
-    emotes = [fileName[:-4] for fileName in fileNames]
+    emotes = [fileName[:-4] for fileName in files]
     await ctx.send(emotes)
 
 # Start the bot

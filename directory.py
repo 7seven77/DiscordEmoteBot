@@ -1,5 +1,4 @@
 import os
-from os import stat
 
 from PIL.Image import NONE
 
@@ -7,11 +6,11 @@ class Directory():
     baseImageDirectory : str = os.path.join('.', 'images')
     
     @staticmethod
-    def getImageDirectories() -> list[str]:
+    def getImageDirectories() -> list:
         return os.listdir(Directory.baseImageDirectory)
 
     @staticmethod
-    def getImageNames(directoryName : str) -> list[str]:
+    def getImageNames(directoryName : str) -> list:
         path : str = os.path.join(Directory.baseImageDirectory, directoryName)
         if not os.path.isdir(path):
             return None

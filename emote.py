@@ -1,3 +1,4 @@
+from directory import Directory
 import discord
 import os
 
@@ -14,8 +15,8 @@ class emoteCog(commands.Cog):
         # Delete the original method
         await ctx.message.delete()
 
-        path : str = os.path.join('.', 'images', self.prefix, f'{self.prefix}{name}.png')
-        if os.path.isfile(path):
+        path : str = Directory.getImagePath(self.prefix, name)
+        if path != None:
             await ctx.send(file=getEmote(path))
         else:
             await ctx.send("Not a valid emote")
