@@ -19,12 +19,16 @@ def getEmote(path : str) -> discord.File:
     discord.File
         The image ready to be sent
     """
+    type : str = os.path.splitext(path)[1][1:].upper()
+    if type == "GIF":
+        return discord.File(path)
+
     # Open and resize the image
     image : Image = Image.open(path)
     image = image.resize(mediumSize)
     # Convert the image to bytes then into a Discord.File
     with io.BytesIO() as binary:
-        image.save(binary, 'PNG')
+        image.save(binary, type)
         binary.seek(0)
         fileName : str = os.path.basename(path)
         return discord.File(binary, fileName)
