@@ -52,7 +52,7 @@ class Directory():
         str
             Path to the image specified
         """
-        imageName : str = Directory.matchImage(imagePrefix, f'{imagePrefix}{imageID}.png')
+        imageName : str = Directory.matchImage(imagePrefix, f'{imagePrefix}{imageID}')
         if imageName == None:
             return None
         path : str = os.path.join(Directory.baseImageDirectory, imagePrefix, imageName)
@@ -76,7 +76,9 @@ class Directory():
             [description]
         """
         options = Directory.getImageNames(imageDirectory)
-        areEqual = lambda string1, string2 : string1.capitalize() == string2.capitalize()
+        if options is None:
+            return None
+        areEqual = lambda name, file : file.capitalize().startswith(name.capitalize())
         image = list(filter(partial(areEqual, imageName), options))
         # Return None, if there are no matches or more than one
         if len(image) != 1:
