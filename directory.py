@@ -1,4 +1,5 @@
 import os
+import re
 from functools import partial
 
 from PIL.Image import NONE
@@ -75,11 +76,16 @@ class Directory():
         str
             [description]
         """
-        options = Directory.getImageNames(imageDirectory)
-        if options is None:
+        options : list = Directory.getImageNames(imageDirectory)
+        if options == None:
             return None
-        areEqual = lambda name, file : file.capitalize().startswith(name.capitalize())
-        image = list(filter(partial(areEqual, imageName), options))
+            
+        # Matches any string that is the same as the imageName, followed immediately by a '.'
+        # Matches are case insensitive and will match any file type
+        pattern : re.Pattern = re.compile(f"{imageName}\.\w*", re.IGNORECASE)
+        
+        areEqual = lambda fileName : pattern.match(fileName) != None
+        image = list(filter(areEqual, options))
         # Return None, if there are no matches or more than one
         if len(image) != 1:
             return None
