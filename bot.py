@@ -55,14 +55,13 @@ async def showGroups(ctx : Context) -> None:
     message = discord.Embed(title =f'Commands', description=f'Commands you can use to show an emote',color=0x800080)
 
     size : int = len(groups)
-    inline : bool = False
+    inline : bool = True
     for count in range(size):
         if count == size - 1:
-            print("make inline now")
-            inline = True
+            pass #inline = False
         message.add_field(name=groups[count], value=blank, inline=inline)
 
-    #message.add_field(name=blank, value=blank, inline=False)
+    message.add_field(name=blank, value=blank, inline=False)
     message.add_field(name='Commands are invoked using `.{Command} {Name}`',
         value='Eg. `.xqc L`', inline=False)
     await ctx.send(embed=message)
