@@ -25,3 +25,9 @@ This shared prefix should be used as the directory name in the `images` director
 When contributing to or using this repo, do not upload your ```.env``` file as this can leak sensitive information such as the bot's token
 
 Using ```git update-index --skip-worktree .env``` should allow you to change the ```.env``` file locally and not have the changes be uploaded
+
+## Image sources
+
+The images used in this repo can be deleted. They were obtained from the following places
+
+- [testPerson.png](https://material.io/resources/icons/?icon=person&style=baseline)
