@@ -57,11 +57,10 @@ async def showGroups(ctx : Context) -> None:
     size : int = len(groups)
     inline : bool = True
     for count in range(size):
-        if count == size - 1:
-            pass #inline = False
-        message.add_field(name=groups[count], value=blank, inline=inline)
+        group : str = groups[count]
+        numberOfEmotes : int = len(Directory.getImageNames(group))
+        message.add_field(name=group, value=f"Emotes: {numberOfEmotes}", inline=inline)
 
-    message.add_field(name=blank, value=blank, inline=False)
     message.add_field(name='Commands are invoked using `.{Command} {Name}`',
         value='Eg. `.xqc L`', inline=False)
     await ctx.send(embed=message)
