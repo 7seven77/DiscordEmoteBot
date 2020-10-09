@@ -6,7 +6,7 @@ import os
 mediumSize : int = (56, 56)
 largeSize : int = (112, 112)
  
-def getEmote(path : str) -> discord.File:
+def getEmoteFromFiles(path : str) -> discord.File:
     """Open and resize a file ready to be sent to Discord
 
     Parameters

@@ -5,6 +5,11 @@ from functools import partial
 from PIL.Image import NONE
 
 class Directory():
+    ''' Provides functions associated with directories
+
+    Use these to get emotes from the images directory
+    '''
+    
     baseImageDirectory : str = os.path.join('.', 'images')
     
     @staticmethod

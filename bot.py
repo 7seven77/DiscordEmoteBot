@@ -58,6 +58,7 @@ async def showGroups(ctx : Context) -> None:
     inline : bool = False
     for count in range(size):
         if count == size - 1:
+            print("make inline now")
             inline = True
         message.add_field(name=groups[count], value=blank, inline=inline)
 
