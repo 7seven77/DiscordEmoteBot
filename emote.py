@@ -13,7 +13,10 @@ class emoteCog(commands.Cog):
     @commands.command(name='emote')
     async def _emote(self, ctx, name : str) -> None:
         # Delete the original method
-        await ctx.message.delete()
+        try:
+            await ctx.message.delete()
+        except:
+            await ctx.send("Please give me the permissions I need")
 
         path : str = Directory.getImagePath(self.prefix, name)
         if path != None:
