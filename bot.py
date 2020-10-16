@@ -88,6 +88,13 @@ async def upload(ctx: Context, slot: int):
         return
     url: str = attachments[0].url
 
+    maxSlots: int = 3
+    if slot < 1 or slot > maxSlots:
+        await ctx.send(f'Please enter a whole number greater than 0 and less than {maxSlots + 1}')
+        return
+    db.setEmote(str(ctx.author.id), str(slot), url)
+    await ctx.send("Your emote has been saved")
+
 @bot.command(name='c')
 async def custom(ctx: Context, slot: int):
     url: str = db.getEmote(str(ctx.author.id), str(slot))
