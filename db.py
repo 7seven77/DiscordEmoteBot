@@ -29,7 +29,8 @@ class db():
         CREATE TABLE customEmotes(
             user TEXT NOT NULL,
             slot TEXT NOT NULL,
-            url TEXT NOT NULL
+            url TEXT NOT NULL,
+            PRIMARY KEY (user, slot)
         );
         """)
 
@@ -57,6 +58,7 @@ class db():
         cursor = connection.cursor()
 
         data = (user, slot, url)
+        print(f'{type(user)} + {type(slot)} + {type(url)}')
         cursor.execute('''
         REPLACE INTO customEmotes(user, slot, url)
             VALUES(?, ?, ?);
