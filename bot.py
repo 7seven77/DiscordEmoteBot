@@ -8,7 +8,6 @@ import re
 import discord
 from discord.ext import commands
 from discord.ext.commands import Context
-from discord.ext.commands import context
 from dotenv import load_dotenv
 
 from emote import emoteCog
@@ -49,7 +48,7 @@ async def help(ctx : Context, group : str = None) -> None:
     else:
         await showEmotes(ctx, group)
 
-async def showGroups(ctx : Context) -> None:
+async def showGroups(ctx: Context) -> None:
     groups : list[str] = Directory.getImageDirectories()
 
     message = discord.Embed(title =f'Commands', description=f'Commands you can use to show an emote',color=0x800080)
@@ -65,13 +64,21 @@ async def showGroups(ctx : Context) -> None:
         value='Eg. `.xqc L`', inline=False)
     await ctx.send(embed=message)
 
-async def showEmotes(ctx : Context, group : str):
+async def showEmotes(ctx: Context, group: str):
     files : list[str] = Directory.getImageNames(group)
     if files == None:
         await ctx.send("This is an invalid command")
         return
     emotes = [fileName[:-4] for fileName in files]
     await ctx.send(emotes)
+
+@bot.command(name="upload")
+async def upload(ctx: Context, slot: int):
+    attachments = ctx.message.attachments
+    if attachments == []:
+        await ctx.send("Upload an image")
+        return
+    url: str = attachments[0].url
 
 # Start the bot
 print("Starting bot", end='\r')
