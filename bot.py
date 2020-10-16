@@ -6,11 +6,16 @@ import random
 import re
 
 import discord
-from discord.ext import commands
+
+# Imported for easy type hinting
 from discord.ext.commands import Context
+# Used in bot creation
+from discord.ext import commands
+
 from dotenv import load_dotenv
 
 from emote import emoteCog
+from db import db
 
 # Get the bot token
 load_dotenv()
@@ -36,6 +41,9 @@ async def on_ready():
 
     await bot.change_presence(activity=discord.Activity(
         type=discord.ActivityType.listening, name="you for commands .help"))
+
+    # print('Database init', end ='\r')
+    # db.setUp()
 
     print('  - Bot ready -  ')
 
@@ -72,13 +80,23 @@ async def showEmotes(ctx: Context, group: str):
     emotes = [fileName[:-4] for fileName in files]
     await ctx.send(emotes)
 
-@bot.command(name="upload")
+@bot.command(name='u')
 async def upload(ctx: Context, slot: int):
     attachments = ctx.message.attachments
     if attachments == []:
         await ctx.send("Upload an image")
         return
     url: str = attachments[0].url
+
+@bot.command(name='c')
+async def custom(ctx: Context, slot: int):
+    url: str = db.getEmote(str(ctx.author.id), str(slot))
+
+    if url == None:
+        await ctx.send("Invalid number")
+        return
+    
+    await ctx.send(url)
 
 # Start the bot
 print("Starting bot", end='\r')
